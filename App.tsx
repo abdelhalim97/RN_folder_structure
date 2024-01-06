@@ -12,13 +12,15 @@ import {AppStack, AuthStack} from './src/routes';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Config from 'react-native-config';
 import {NavigationContainer} from '@react-navigation/native';
+import {useAuthStore} from './src/zustand/zustand';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-const isLoggedIn = true;
 
 function App(): React.JSX.Element {
+  const isAuthed = useAuthStore(state => state.isAuthed);
+
   const backgroundStyle = {
     backgroundColor: Colors.lighter,
   };
@@ -29,7 +31,7 @@ function App(): React.JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <NavigationContainer>
-        {isLoggedIn ? <AppStack /> : <AuthStack />}
+        {isAuthed ? <AppStack /> : <AuthStack />}
       </NavigationContainer>
     </SafeAreaView>
   );
