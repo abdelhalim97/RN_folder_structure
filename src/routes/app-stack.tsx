@@ -9,7 +9,6 @@ const AppStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        // gestureEnabled: true,
         headerShown: false,
       }}>
       <Stack.Screen name="Home" component={Home} />

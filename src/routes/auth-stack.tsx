@@ -8,7 +8,6 @@ const AuthStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        // gestureEnabled: true,
         headerShown: false,
       }}>
       <Stack.Screen name="Login" component={Login} />
