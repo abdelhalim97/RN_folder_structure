@@ -3,11 +3,10 @@ import React from 'react';
 import {useAuthStore} from '../../../zustand/zustand';
 
 const Login = () => {
-  const updateAuthStore = useAuthStore(state => state.updateAuthStore);
-  const isAuthed = useAuthStore(state => state.isAuthed);
+  const updateAuthStore = useAuthStore().updateAuthStore;
   return (
     <View>
-      <TouchableOpacity onPress={() => updateAuthStore(isAuthed)}>
+      <TouchableOpacity onPress={() => updateAuthStore()}>
         <Text>login</Text>
       </TouchableOpacity>
     </View>
