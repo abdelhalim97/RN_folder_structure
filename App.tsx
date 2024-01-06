@@ -13,7 +13,9 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Config from 'react-native-config';
 import {NavigationContainer} from '@react-navigation/native';
 import {useAuthStore} from './src/zustand/zustand';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
+const queryClient = new QueryClient();
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -25,15 +27,17 @@ function App(): React.JSX.Element {
     backgroundColor: Colors.lighter,
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar
-        barStyle={'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <NavigationContainer>
-        {isAuthed ? <AppStack /> : <AuthStack />}
-      </NavigationContainer>
-    </SafeAreaView>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar
+          barStyle={'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <NavigationContainer>
+          {isAuthed ? <AppStack /> : <AuthStack />}
+        </NavigationContainer>
+      </SafeAreaView>
+    </QueryClientProvider>
   );
 }
 
