@@ -1,16 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import useFetchCats from '../../../custom-hooks/fetch-cats';
 
 const Home = () => {
-  console.log('test');
+  const {data, isLoading, isError} = useFetchCats();
   return (
     <View style={{flex: 1}}>
-      <Text style={{color: '#000'}}>home</Text>
-      <Text style={{color: '#000'}}>home</Text>
-      <Text style={{color: '#000'}}>home</Text>
-      <Text style={{color: '#000'}}>home</Text>
-      <Text style={{color: '#000'}}>home</Text>
-      <Text style={{color: '#000'}}>home</Text>
       <Text style={{color: '#000'}}>home</Text>
     </View>
   );
