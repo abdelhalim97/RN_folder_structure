@@ -5,15 +5,44 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {
+  AppState,
+  AppStateStatus,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
 import {AppStack, AuthStack} from './src/routes';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Config from 'react-native-config';
+// import Config from 'react-native-config';
 import {NavigationContainer} from '@react-navigation/native';
 import {useAuthStore} from './src/zustand/zustand';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  focusManager,
+  onlineManager,
+} from '@tanstack/react-query';
+import NetInfo from '@react-native-community/netinfo';
+import {onAppStateChange} from './src/react-query/app-state-change';
+
+//auto refetch on reconnect to network
+onlineManager.setEventListener(setOnline => {
+  return NetInfo.addEventListener(state => {
+    setOnline(!!state.isConnected);
+  });
+});
+
+//refetch when the app is running in the foreground
+//TODO: recheck this  https://tanstack.com/query/v4/docs/react/react-native
+useEffect(() => {
+  const subscription = AppState.addEventListener('change', onAppStateChange);
+
+  return () => subscription.remove();
+}, []);
 
 const queryClient = new QueryClient();
 type SectionProps = PropsWithChildren<{
