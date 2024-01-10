@@ -1,12 +1,12 @@
 import {create} from 'zustand';
 import {AuthStoreType} from './types/auth-type';
 
-export const useAuthStore = create<AuthStoreType>(set => ({
+const useAuthStore = create<AuthStoreType>()(set => ({
   isAuthed: false,
   updateAuthStore: () => set(state => ({isAuthed: !state.isAuthed})),
   //}
 }));
-
+export {useAuthStore};
 // export const useCatsStore = create<AuthStoreType>(set => ({
 //   isAuthed: false,
 //   updateAuthStore: () => set(state => ({isAuthed: !state.isAuthed})),
