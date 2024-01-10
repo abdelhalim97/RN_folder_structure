@@ -4,7 +4,7 @@ import {AuthStoreType} from '../types/auth-type';
 import {create} from '../../../__mocks__/zustand';
 
 const initialIsAuthValue = false;
-const useIncrementingStore = create<AuthStoreType>()(set => ({
+const useIncrementingStore = create()<AuthStoreType>(set => ({
   isAuthed: initialIsAuthValue,
   updateAuthStore: () => set(state => ({isAuthed: !state.isAuthed})),
 }));
