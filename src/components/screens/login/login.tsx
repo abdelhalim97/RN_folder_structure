@@ -6,7 +6,9 @@ const Login = () => {
   const updateAuthStore = useAuthStore().updateAuthStore;
   return (
     <View>
-      <TouchableOpacity onPress={() => updateAuthStore()}>
+      <TouchableOpacity
+        onPress={() => updateAuthStore()}
+        accessibilityRole="button">
         <Text>login</Text>
       </TouchableOpacity>
     </View>
