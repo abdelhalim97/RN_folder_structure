@@ -5,10 +5,8 @@ import React from 'react';
 const Home = () => {
   // const {data, isLoading, isError} = useFetchCats();
   return (
-    <View style={{flex: 1}} accessibilityRole="text">
-      <Text style={{color: '#000'}} accessibilityRole="text">
-        home
-      </Text>
+    <View style={{flex: 1}}>
+      <Text style={{color: '#000'}}>home</Text>
     </View>
   );
 };
