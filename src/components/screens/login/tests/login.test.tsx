@@ -19,10 +19,10 @@ describe('test login component', () => {
 
     //waitFor is intended for async operations and DOM changes
     //but find* queries use waitFor under the hood already
+    const homeView = render(<Home />);
 
-    expect(await screen.findByRole('text', {name: /home/i})).toBeOnTheScreen();
-    // await waitFor(() =>
-    //   expect(screen.getByRole('text', {name: /home/i})).toBeOnTheScreen(),
-    // );
+    expect(
+      await homeView.findByRole('text', {name: /home/i}),
+    ).toBeOnTheScreen();
   });
 });
