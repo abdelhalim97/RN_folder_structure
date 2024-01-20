@@ -6,7 +6,7 @@ const useFetchCats = () => {
   return useQuery({
     queryKey: [QueryKeys.FetchCats],
     queryFn: async () =>
-      await axiosInstance.get('votes?limit=10&order=DESC').then(res => res),
+      await axiosInstance.get('images/search?limit=5').then(res => res),
   });
 };
 

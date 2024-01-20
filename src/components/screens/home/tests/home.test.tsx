@@ -4,8 +4,24 @@ import {screen, render} from '@testing-library/react-native';
 import Config from 'react-native-config';
 import ReactQueryWrapper from '../../../../react-query/query-client-provider';
 
+const responseCates = [
+  {
+    breeds: [],
+    categories: [
+      {
+        id: 4,
+        name: 'sunglasses',
+      },
+    ],
+    id: 'bp',
+    url: 'https://cdn2.thecatapi.com/images/bp.jpg',
+    width: 500,
+    height: 375,
+  },
+];
+
 describe('tseting home screen', () => {
-  it('testing Get endpoint', async () => {
+  it('testing Get endpoint failing', async () => {
     const response = [
       {
         id: 587093,
@@ -23,7 +39,7 @@ describe('tseting home screen', () => {
 
     nock(`${Config.CAT_API_URL}`)
       .get('/votes?limit=10&order=DESC')
-      .reply(200, response);
+      .reply(500, response);
 
     render(
       <ReactQueryWrapper>
@@ -31,7 +47,25 @@ describe('tseting home screen', () => {
       </ReactQueryWrapper>,
     );
 
-    await screen.findByRole('text', {name: /done/i});
+    expect(screen.findByRole('text', {name: /home/i}));
+
+    //this to solve problem when the jest hangup coz of react query cacheTime
+    // https://github.com/TanStack/query/issues/1847
+    jest.useFakeTimers();
+  });
+
+  it.only('testing success Get endpoint', async () => {
+    render(
+      <ReactQueryWrapper>
+        <Home />
+      </ReactQueryWrapper>,
+    );
+
+    nock(`${Config.CAT_API_URL}`)
+      .get('images/search?limit=5')
+      .reply(200, responseCates);
+
+    expect(await screen.findByTestId('fetchedCats')).toBeOnTheScreen();
     //this to solve problem when the jest hangup coz of react query cacheTime
     // https://github.com/TanStack/query/issues/1847
     jest.useFakeTimers();

@@ -6,10 +6,13 @@ const Home = () => {
   const {data, isLoading, isError, isSuccess} = useFetchCats();
   return (
     <View style={{flex: 1}}>
-      {!isLoading ? (
-        <Text style={{color: '#000'}}>done</Text>
+      {isSuccess ? (
+        data?.data.map((cat: any) => (
+          <Text style={{color: '#000'}} testID="fetchedCats">
+            {cat.id}
+          </Text>
+        ))
       ) : (
-        // {data?.data}
         <Text style={{color: '#000'}}>home</Text>
       )}
     </View>
