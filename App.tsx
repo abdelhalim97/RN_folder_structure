@@ -17,17 +17,12 @@ import {
 } from 'react-native';
 import {AppStack, AuthStack} from './src/routes';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-// import Config from 'react-native-config';
 import {NavigationContainer} from '@react-navigation/native';
 import {useAuthStore} from './src/zustand/zustand';
-import {
-  QueryClient,
-  QueryClientProvider,
-  focusManager,
-  onlineManager,
-} from '@tanstack/react-query';
+import {onlineManager} from '@tanstack/react-query';
 import NetInfo from '@react-native-community/netinfo';
 import {onAppStateChange} from './src/react-query/app-state-change';
+import ReactQueryWrapper from './src/react-query/query-client-provider';
 
 //auto refetch on reconnect to network
 onlineManager.setEventListener(setOnline => {
@@ -44,7 +39,6 @@ useEffect(() => {
   return () => subscription.remove();
 }, []);
 
-const queryClient = new QueryClient();
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -56,7 +50,7 @@ function App(): React.JSX.Element {
     backgroundColor: Colors.lighter,
   };
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQueryWrapper>
       <SafeAreaView style={{flex: 1}}>
         <StatusBar
           barStyle={'dark-content'}
@@ -66,7 +60,7 @@ function App(): React.JSX.Element {
           {isAuthed ? <AppStack /> : <AuthStack />}
         </NavigationContainer>
       </SafeAreaView>
-    </QueryClientProvider>
+    </ReactQueryWrapper>
   );
 }
 

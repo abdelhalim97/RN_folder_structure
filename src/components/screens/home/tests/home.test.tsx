@@ -1,19 +1,8 @@
 import nock from 'nock';
 import Home from '../home';
 import {screen, render} from '@testing-library/react-native';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import Config from 'react-native-config';
-import {ReactNode} from 'react';
-
-interface Props {
-  children?: ReactNode;
-  // any props that come into the component
-}
-
-const queryClient = new QueryClient();
-const Wrapper = ({children}: Props) => (
-  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-);
+import ReactQueryWrapper from '../../../../react-query/query-client-provider';
 
 describe('tseting home screen', () => {
   it('testing Get endpoint', async () => {
@@ -37,9 +26,9 @@ describe('tseting home screen', () => {
       .reply(200, response);
 
     render(
-      <Wrapper>
+      <ReactQueryWrapper>
         <Home />
-      </Wrapper>,
+      </ReactQueryWrapper>,
     );
 
     await screen.findByRole('text', {name: /done/i});
