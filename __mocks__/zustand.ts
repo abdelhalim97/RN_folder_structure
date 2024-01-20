@@ -1,4 +1,4 @@
-import {act} from 'react-test-renderer'; //import {act} from '@testing-library/react';
+import {act} from 'react-test-renderer';
 import {StateCreator, create as actualCreate} from 'zustand';
 
 // a variable to hold reset functions for all stores declared in the app
