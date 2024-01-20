@@ -6,11 +6,7 @@ const useFetchCats = () => {
   return useQuery({
     queryKey: [QueryKeys.FetchCats],
     queryFn: async () =>
-      await axiosInstance
-        .get(
-          'images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=RANDOM&page=0&limit=1',
-        )
-        .then(res => res),
+      await axiosInstance.get('votes?limit=10&order=DESC').then(res => res),
   });
 };
 
